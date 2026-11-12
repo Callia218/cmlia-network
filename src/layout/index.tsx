@@ -75,7 +75,7 @@ export function AppLayout() {
           >
             <img src="/icon.svg" width="24" height="24" alt="" />
             <span className="hidden sm:inline">
-              ONE<span className="text-primary">·</span>IP
+              CMLIA<span className="text-primary">·</span>NET
             </span>
           </Link>
           <div className={headerActionsClass}>
@@ -104,7 +104,7 @@ export function AppLayout() {
               className="size-6"
             />
             <span className="ml-2 hidden text-[0.8rem] font-semibold tracking-[0.18em] text-foreground/80 sm:inline">
-              ONE<span className="text-primary">·</span>IP
+              CMLIA<span className="text-primary">·</span>NET
             </span>
           </Link>
           <div className={cn(headerActionsClass, "md:gap-1.5")}>
