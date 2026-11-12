@@ -1,0 +1,15 @@
+{
+  "dnsDiagnostics.title": "DNS records & DNSSEC",
+  "dnsDiagnostics.placeholder": "Enter a domain, such as example.com",
+  "dnsDiagnostics.description": "Query A, AAAA, CNAME, MX, NS, TXT, CAA, HTTPS and SVCB records, with the resolver's DNSSEC authentication signal.",
+  "dnsDiagnostics.loading": "Querying DNS…",
+  "dnsDiagnostics.noRecords": "No records returned",
+  "dnsDiagnostics.checkedAt": "Checked: {0}",
+  "dnsDiagnostics.disclaimer": "Data comes from Cloudflare public DoH. DNSSEC reflects the recursive resolver's authenticated-data flag and is not a complete domain security audit.",
+  "dnsDiagnostics.dnssec.secure": "DNSSEC: authenticated",
+  "dnsDiagnostics.dnssec.unverified": "DNSSEC: unverified",
+  "dnsDiagnostics.dnssec.unknown": "DNSSEC: unconfirmed",
+  "dnsDiagnostics.status.noError": "No error",
+  "dnsDiagnostics.status.nxdomain": "Domain does not exist",
+  "dnsDiagnostics.status.error": "Query error"
+}

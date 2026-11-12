@@ -15,6 +15,7 @@ export function categoryStatusClass(
     visible: boolean;
     pending: boolean;
     reachable?: boolean;
+    reachability?: "reachable" | "unreachable" | "unknown";
     geoPending: boolean;
     geo?: { ip?: string };
   }[],
@@ -24,10 +25,14 @@ export function categoryStatusClass(
     rows.some((row) => !row.visible || row.pending || row.geoPending)
   )
     return "text-muted-foreground hover:text-muted-foreground";
-  const unreachable = rows.filter((row) => row.reachable === false).length;
+  const unreachable = rows.filter(
+    (row) => row.reachability === "unreachable",
+  ).length;
+  const uncertain = rows.filter((row) => row.reachability === "unknown").length;
   const success = rows.filter((row) => row.geo?.ip).length;
   if (!unreachable && success === rows.length)
     return "text-success hover:text-success";
-  if (unreachable < rows.length) return "text-warning hover:text-warning";
+  if (unreachable < rows.length || uncertain)
+    return "text-warning hover:text-warning";
   return "text-destructive hover:text-destructive";
 }

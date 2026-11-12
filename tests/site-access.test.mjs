@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import { moduleUrl } from "./compile.mjs";
+
 const i18n = moduleUrl("export const t = (text) => text;");
 const network = moduleUrl(
   readFileSync("src/lib/network.ts", "utf8").replace(
@@ -86,8 +87,28 @@ test("site inspection reuses a successful egress response as reachability", asyn
       method: "cftrace",
     });
     assert.equal(result.reachable, true);
+    assert.equal(result.reachability, "reachable");
     assert.equal(result.geo?.ip, "1.1.1.1");
     assert.deepEqual(calls, ["https://www.example.com/cdn-cgi/trace"]);
+  } finally {
+    globalThis.fetch = original;
+  }
+});
+
+test("a failed browser fallback remains unconfirmed instead of proving a block", async () => {
+  const original = globalThis.fetch;
+  globalThis.fetch = async () => {
+    throw new TypeError("offline");
+  };
+  try {
+    const result = await api.inspectSite({
+      domain: "www.example.com",
+      icon: "",
+      name: "Example",
+      method: "cftrace",
+    });
+    assert.equal(result.reachable, false);
+    assert.equal(result.reachability, "unknown");
   } finally {
     globalThis.fetch = original;
   }

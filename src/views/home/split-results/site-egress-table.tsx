@@ -30,6 +30,7 @@ export interface Row extends Site {
   geo?: Geo;
   pending: boolean;
   reachable?: boolean;
+  reachability?: "reachable" | "unreachable" | "unknown";
   geoPending: boolean;
 }
 
@@ -172,11 +173,14 @@ export function SiteEgressTable({
                     : "";
                   const status = row.pending
                     ? t("common.checking")
-                    : row.reachable === false
+                    : row.reachability === "unreachable"
                       ? t("home.websiteAccessBlockedLabel")
-                      : row.reachable === true
-                        ? t("home.websiteReachable")
-                        : t("home.waitingToCheck");
+                      : row.reachability === "unknown"
+                        ? t("home.websiteAccessUnconfirmed")
+                        : row.reachability === "reachable" ||
+                            row.reachable === true
+                          ? t("home.websiteReachable")
+                          : t("home.waitingToCheck");
                   // Desktop draws row separators on cells; mobile moves them to the row.
                   const rowBorder =
                     index > 0 &&
@@ -243,11 +247,16 @@ export function SiteEgressTable({
                       >
                         {row.pending ? (
                           <Pending>{t("common.checking")}</Pending>
-                        ) : row.reachable === false ? (
+                        ) : row.reachability === "unreachable" ? (
                           <span className="text-destructive">
                             {t("home.websiteAccessBlockedLabel")}
                           </span>
-                        ) : row.reachable === true ? (
+                        ) : row.reachability === "unknown" ? (
+                          <span className="text-warning">
+                            {t("home.websiteAccessUnconfirmed")}
+                          </span>
+                        ) : row.reachability === "reachable" ||
+                          row.reachable === true ? (
                           <span className="text-success">
                             {t("home.websiteReachable")}
                           </span>

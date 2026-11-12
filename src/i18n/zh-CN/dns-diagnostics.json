@@ -1,0 +1,15 @@
+{
+  "dnsDiagnostics.title": "DNS 记录与 DNSSEC",
+  "dnsDiagnostics.placeholder": "输入域名，如 example.com",
+  "dnsDiagnostics.description": "查询 A、AAAA、CNAME、MX、NS、TXT、CAA、HTTPS 和 SVCB 记录，并检查 DNSSEC 验证标记。",
+  "dnsDiagnostics.loading": "正在查询 DNS…",
+  "dnsDiagnostics.noRecords": "没有返回记录",
+  "dnsDiagnostics.checkedAt": "查询时间：{0}",
+  "dnsDiagnostics.disclaimer": "数据来自 Cloudflare 公共 DoH。DNSSEC 显示的是递归解析器返回的认证标记，不等同于完整的域名安全审计。",
+  "dnsDiagnostics.dnssec.secure": "DNSSEC：已认证",
+  "dnsDiagnostics.dnssec.unverified": "DNSSEC：未验证",
+  "dnsDiagnostics.dnssec.unknown": "DNSSEC：待确认",
+  "dnsDiagnostics.status.noError": "正常",
+  "dnsDiagnostics.status.nxdomain": "域名不存在",
+  "dnsDiagnostics.status.error": "查询错误"
+}

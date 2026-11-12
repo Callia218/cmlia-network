@@ -175,7 +175,7 @@ test("visitor information uses this request only and is not cacheable", async ()
 test("removed legacy risk endpoint returns 404", async () => {
   assert.equal((await worker.fetch(request("/api/iprisk/1.1.1.1"), env)).status, 404);
 });
-test("removed DNS endpoints return 404 without querying upstream services", async () => {
+test("DNS diagnostics routes reject legacy mutations without querying upstream services", async () => {
   await withFetch(
     async () => {
       throw new Error("Unexpected upstream request");
@@ -189,7 +189,7 @@ test("removed DNS endpoints return 404 without querying upstream services", asyn
         }),
         env,
       );
-      assert.equal(response.status, 404);
+      assert.equal(response.status, 405);
       assert.equal(
         (await worker.fetch(request("/api/dns/result/old-session"), env))
           .status,

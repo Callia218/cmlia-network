@@ -49,6 +49,7 @@
   "home.mapTilesCouldLoadCheckConnectionRefreshExit": "Map tiles could not load. Check your connection and refresh; the exit list is still available.",
   "home.websiteAccessBlocked": "Website access blocked",
   "home.websiteAccessBlockedLabel": "Website access blocked",
+  "home.websiteAccessUnconfirmed": "Access status unconfirmed",
   "home.egressUnavailable": "Egress unavailable",
   "home.egressIpWasNotReadable": "Egress IP was not readable",
   "home.websiteReachableButEgressIpWasNotReadable": "Website reachable, but egress IP was not readable",

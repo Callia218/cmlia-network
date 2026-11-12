@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { t } from "@/i18n";
 import {
   Activity,
+  Cable,
   FileSearch,
   Fingerprint,
   Gauge,
@@ -78,6 +79,18 @@ export function HomeShortcuts() {
       label: "WHOIS",
       description: t("pageHelp.lookUpRegistrationDetailsDomainIpAsnIncluding"),
       icon: FileSearch,
+    },
+    {
+      path: "/diagnostics/dns",
+      label: t("dnsDiagnostics.title"),
+      description: t("dnsDiagnostics.description"),
+      icon: Cable,
+    },
+    {
+      path: "/diagnostics/http",
+      label: t("httpDiagnostics.title"),
+      description: t("httpDiagnostics.description"),
+      icon: Globe,
     },
     {
       path: "/ping",

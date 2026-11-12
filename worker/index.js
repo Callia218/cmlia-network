@@ -2,7 +2,9 @@ import { getAiStatus } from "./ai-status.js";
 import { cachedJson } from "./cache.js";
 import { challengeConfig, verifyChallenge } from "./challenges.js";
 import { getCloudStatus } from "./cloud-status.js";
+import { inspectDns } from "./dns-diagnostics.js";
 import { cfGeo, geoIp, secondaryGeo } from "./geo.js";
+import { inspectHttpUrl } from "./http-diagnostics.js";
 import { clientIp, HttpError, inputJson, json, publicIp } from "./http.js";
 import { siteIcon } from "./icons.js";
 import { ipNetwork } from "./ip-network.js";
@@ -59,8 +61,6 @@ export default {
         ))
       )
         throw new HttpError(429, "请求过于频繁，请一分钟后重试");
-      if (path === "/dns" || path.startsWith("/dns/"))
-        throw new HttpError(404, "接口不存在");
       const isAction = path === "/ping/start";
       if (
         (isAction && request.method !== "POST") ||
@@ -74,6 +74,19 @@ export default {
       if (path.startsWith("/icons/"))
         return await siteIcon(decodeURIComponent(path.slice(7)));
       if (path === "/map/config") return json(mapConfig(env));
+      if (path === "/http/inspect") {
+        const value = url.searchParams.get("url");
+        return json(await inspectHttpUrl(value));
+      }
+      if (path.startsWith("/dns/records/")) {
+        const name = decodeURIComponent(path.slice("/dns/records/".length));
+        return await cachedJson(
+          new URL(`/api/dns/records/${encodeURIComponent(name)}`, url.origin),
+          300,
+          () => inspectDns(name),
+          (data) => Boolean(data?.domain),
+        );
+      }
       if (path === "/me") {
         const data = cfGeo(request);
         if (!data.ip || key === "local" || env.LOCAL_DEV === "true")

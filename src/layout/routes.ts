@@ -50,6 +50,8 @@ export const secondaryRoutes = [
   "/",
   "/ip",
   "/whois",
+  "/diagnostics/dns",
+  "/diagnostics/http",
   "/ping",
   "/status",
   ...browserChecks.map((page) => `/browser/${page}`),

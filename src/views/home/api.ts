@@ -170,22 +170,42 @@ export async function probeSite(site: Site, signal?: AbortSignal) {
   return (await probe(siteProbeUrl(site), signal)) >= 0;
 }
 
+export type SiteReachability = "reachable" | "unreachable" | "unknown";
+
 export interface SiteInspection {
   geo?: Geo;
   reachable: boolean;
+  /** A failed browser probe is not enough to prove that a site is blocked. */
+  reachability: SiteReachability;
 }
 
 export async function inspectSite(
   site: Site,
   signal?: AbortSignal,
 ): Promise<SiteInspection> {
-  if (site.method === "unsupported")
-    return { reachable: await probeSite(site, signal) };
+  if (site.method === "unsupported") {
+    const reachable = await probeSite(site, signal);
+    return {
+      reachable,
+      reachability: reachable ? "reachable" : "unknown",
+    };
+  }
   try {
-    return { geo: await detectSite(site, signal), reachable: true };
+    return {
+      geo: await detectSite(site, signal),
+      reachable: true,
+      reachability: "reachable",
+    };
   } catch (error) {
     if (signal?.aborted) throw error;
-    return { reachable: await probeSite(site, signal) };
+    const reachable = await probeSite(site, signal);
+    return {
+      reachable,
+      // A browser no-cors probe deliberately hides the response. A failed
+      // fetch can be caused by an extension, CORS policy or a transient edge
+      // error, so keep it out of the definitive "blocked" bucket.
+      reachability: reachable ? "reachable" : "unknown",
+    };
   }
 }
 

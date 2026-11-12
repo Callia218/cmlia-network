@@ -2,6 +2,7 @@ import enAi from "./en/ai.json" with { type: "json" };
 import enApi from "./en/api.json" with { type: "json" };
 import enBrowser from "./en/browser.json" with { type: "json" };
 import enCommon from "./en/common.json" with { type: "json" };
+import enDnsDiagnostics from "./en/dns-diagnostics.json" with { type: "json" };
 import enHome from "./en/home.json" with { type: "json" };
 import enIp from "./en/ip.json" with { type: "json" };
 import enNetwork from "./en/network.json" with { type: "json" };
@@ -12,6 +13,7 @@ import zhAi from "./zh-CN/ai.json" with { type: "json" };
 import zhApi from "./zh-CN/api.json" with { type: "json" };
 import zhBrowser from "./zh-CN/browser.json" with { type: "json" };
 import zhCommon from "./zh-CN/common.json" with { type: "json" };
+import zhDnsDiagnostics from "./zh-CN/dns-diagnostics.json" with { type: "json" };
 import zhHome from "./zh-CN/home.json" with { type: "json" };
 import zhIp from "./zh-CN/ip.json" with { type: "json" };
 import zhNetwork from "./zh-CN/network.json" with { type: "json" };
@@ -30,6 +32,7 @@ const zh = {
   ...zhHome,
   ...zhPolicy,
   ...zhApi,
+  ...zhDnsDiagnostics,
 };
 
 export type MessageKey = keyof typeof zh;
@@ -47,5 +50,6 @@ export const messages: Record<"zh-CN" | "en", Record<MessageKey, string>> = {
     ...enHome,
     ...enPolicy,
     ...enApi,
+    ...enDnsDiagnostics,
   },
 };

@@ -34,6 +34,7 @@ export default function ExitMap({
     visible: boolean;
     pending: boolean;
     reachable?: boolean;
+    reachability?: "reachable" | "unreachable" | "unknown";
     geoPending: boolean;
   }[];
   onSelect: (name: string) => void;
@@ -319,22 +320,26 @@ export default function ExitMap({
                   ? t("home.waitingToCheck")
                   : row.pending
                     ? t("common.checking")
-                    : row.reachable === false
+                    : row.reachability === "unreachable"
                       ? t("home.websiteAccessBlocked")
-                      : !row.geo
-                        ? t("home.egressUnavailable")
-                        : row.geoPending
-                          ? t("common.lookingUpEllipsis")
-                          : t("home.egressCollected");
+                      : row.reachability === "unknown"
+                        ? t("home.websiteAccessUnconfirmed")
+                        : !row.geo
+                          ? t("home.egressUnavailable")
+                          : row.geoPending
+                            ? t("common.lookingUpEllipsis")
+                            : t("home.egressCollected");
                 const color = !row.visible
                   ? "bg-muted text-muted-foreground"
                   : row.pending || row.geoPending
                     ? "bg-warning/10 text-warning"
-                    : row.reachable === false
+                    : row.reachability === "unreachable"
                       ? "bg-destructive/10 text-destructive"
-                      : row.geo
-                        ? "bg-success/10 text-success"
-                        : "bg-warning/10 text-warning";
+                      : row.reachability === "unknown"
+                        ? "bg-warning/10 text-warning"
+                        : row.geo
+                          ? "bg-success/10 text-success"
+                          : "bg-warning/10 text-warning";
                 const hostname =
                   row.domain ?? row.icon.match(/\/ip3\/([^/?#]+)\.ico/)?.[1];
                 const website = row.domain

@@ -19,6 +19,7 @@ type Row = Site & {
   visible: boolean;
   pending: boolean;
   reachable?: boolean;
+  reachability?: "reachable" | "unreachable" | "unknown";
   geoPending: boolean;
 };
 
@@ -50,23 +51,28 @@ export function ExitGroups({
     const key =
       !row.visible || row.pending
         ? "pending"
-        : row.reachable === false
+        : row.reachability === "unreachable"
           ? "unreachable"
-          : (row.geo?.ip ?? "egress-unreadable");
+          : row.reachability === "unknown"
+            ? "reachability-unknown"
+            : (row.geo?.ip ?? "egress-unreadable");
     groups.set(key, [...(groups.get(key) ?? []), row]);
   }
   const priority = (key: string) =>
     key === "unreachable"
       ? 0
-      : key === "egress-unreadable"
+      : key === "reachability-unknown"
         ? 1
-        : key === "pending"
+        : key === "egress-unreadable"
           ? 2
-          : 3;
+          : key === "pending"
+            ? 3
+            : 3;
   const selectGroup = (key: string) => {
     setSelected(key);
     if (
       key !== "unreachable" &&
+      key !== "reachability-unknown" &&
       key !== "egress-unreadable" &&
       key !== "pending"
     )
@@ -144,6 +150,7 @@ export function ExitGroups({
                   items.find((row) => row.geo?.country)?.geo ?? items[0].geo;
                 const special =
                   key === "unreachable" ||
+                  key === "reachability-unknown" ||
                   key === "egress-unreadable" ||
                   key === "pending";
                 return (
@@ -167,17 +174,21 @@ export function ExitGroups({
                               className={
                                 key === "unreachable"
                                   ? "text-destructive"
-                                  : key === "egress-unreadable"
+                                  : key === "reachability-unknown"
                                     ? "text-warning"
-                                    : "text-muted-foreground"
+                                    : key === "egress-unreadable"
+                                      ? "text-warning"
+                                      : "text-muted-foreground"
                               }
                             >
                               {t(
                                 key === "unreachable"
                                   ? "home.websiteAccessBlocked"
-                                  : key === "egress-unreadable"
-                                    ? "home.egressUnavailable"
-                                    : "common.checking",
+                                  : key === "reachability-unknown"
+                                    ? "home.websiteAccessUnconfirmed"
+                                    : key === "egress-unreadable"
+                                      ? "home.egressUnavailable"
+                                      : "common.checking",
                               )}
                             </span>
                           ) : (
@@ -239,15 +250,23 @@ export function ExitGroups({
             {t("home.websiteAccessBlockedLabel")}
           </p>
         )}
+        {selected === "reachability-unknown" && (
+          <p className="mb-2 text-sm text-warning">
+            {t("home.websiteAccessUnconfirmed")}
+          </p>
+        )}
         {selected === "egress-unreadable" && (
           <p className="mb-2 text-sm text-warning">
             {t("home.websiteReachableButEgressIpWasNotReadable")}
           </p>
         )}
         {selected &&
-          !["unreachable", "egress-unreadable", "pending"].includes(
-            selected,
-          ) && <IpText ip={selected} />}
+          ![
+            "unreachable",
+            "reachability-unknown",
+            "egress-unreadable",
+            "pending",
+          ].includes(selected) && <IpText ip={selected} />}
         <div className="flex flex-wrap gap-2">
           {(groups.get(selected ?? "") ?? []).map((row) => {
             const host =
@@ -260,7 +279,7 @@ export function ExitGroups({
                 key={row.name}
                 asChild
                 variant="secondary"
-                className={`h-8 max-w-full gap-1.5 px-2.5 ${selected === "unreachable" ? "bg-destructive/10 text-destructive" : selected === "egress-unreadable" ? "bg-warning/10 text-warning" : ""}`}
+                className={`h-8 max-w-full gap-1.5 px-2.5 ${selected === "unreachable" ? "bg-destructive/10 text-destructive" : selected === "reachability-unknown" || selected === "egress-unreadable" ? "bg-warning/10 text-warning" : ""}`}
               >
                 <a
                   href={url}

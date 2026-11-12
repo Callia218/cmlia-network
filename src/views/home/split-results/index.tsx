@@ -98,6 +98,7 @@ export function SplitResults({ summary = false }: { summary?: boolean }) {
       : undefined,
     pending: inspectionQueries[i].isFetching || inspectionQueries[i].isPending,
     reachable: inspectionQueries[i].data?.reachable,
+    reachability: inspectionQueries[i].data?.reachability,
     geoPending:
       inspectionQueries[i].isPending ||
       Boolean(
@@ -106,8 +107,10 @@ export function SplitResults({ summary = false }: { summary?: boolean }) {
       ),
   }));
   const groupedRows = [...rows].sort((a, b) => {
-    const aBlocked = a.visible && !a.pending && a.reachable === false;
-    const bBlocked = b.visible && !b.pending && b.reachable === false;
+    const aBlocked =
+      a.visible && !a.pending && a.reachability === "unreachable";
+    const bBlocked =
+      b.visible && !b.pending && b.reachability === "unreachable";
     return Number(bBlocked) - Number(aBlocked);
   });
   const categoryRows = rows.filter((row) => matchesSiteCategory(row, category));
@@ -399,12 +402,14 @@ export function SplitResults({ summary = false }: { summary?: boolean }) {
             <p className="text-muted-foreground">
               {detail.pending
                 ? t("common.checking")
-                : detail.reachable === false
+                : detail.reachability === "unreachable"
                   ? t("home.websiteAccessBlockedLabel")
-                  : detail.geo
-                    ? t("home.egressCollected")
-                    : (detail.note ??
-                      t("home.websiteReachableButEgressIpWasNotReadable"))}
+                  : detail.reachability === "unknown"
+                    ? t("home.websiteAccessUnconfirmed")
+                    : detail.geo
+                      ? t("home.egressCollected")
+                      : (detail.note ??
+                        t("home.websiteReachableButEgressIpWasNotReadable"))}
             </p>
           </div>
         ) : (

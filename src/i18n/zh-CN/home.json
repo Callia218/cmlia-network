@@ -49,6 +49,7 @@
   "home.mapTilesCouldLoadCheckConnectionRefreshExit": "地图底图加载失败，请检查网络后刷新；出口列表仍可使用。",
   "home.websiteAccessBlocked": "访问受阻",
   "home.websiteAccessBlockedLabel": "网站访问受阻",
+  "home.websiteAccessUnconfirmed": "访问状态待确认",
   "home.egressUnavailable": "出口不可读",
   "home.egressIpWasNotReadable": "未读取到出口 IP",
   "home.websiteReachableButEgressIpWasNotReadable": "网站可访问，但未能读取出口 IP",
