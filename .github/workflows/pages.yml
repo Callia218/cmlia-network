@@ -1,4 +1,4 @@
-name: Build and deploy one-ip
+name: Build and deploy cmlia-network
 
 # The same file lives on every branch. Which branch deploys is decided by the
 # CF_DEPLOY_BRANCH repository variable, falling back to the default branch, so
@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: one-ip-${{ github.ref }}
+  group: cmlia-network-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 env:
@@ -64,7 +64,7 @@ jobs:
         if: steps.gate.outputs.deploy == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: one-ip-dist
+          name: cmlia-network-dist
           path: |
             dist
             dist-pages
@@ -83,23 +83,23 @@ jobs:
         with:
           context: .
           load: true
-          tags: one-ip:ci
+          tags: cmlia-network:ci
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Check runtime image contents
         run: |
-          docker run --rm --entrypoint sh one-ip:ci -c \
+          docker run --rm --entrypoint sh cmlia-network:ci -c \
             'test ! -e /app/node_modules && test ! -e /app/src && test -f /app/.output/server.mjs && test -f /app/dist/index.html'
       - name: Run container and probe endpoints
         run: |
-          docker run -d --name one-ip-ci --read-only --cap-drop ALL \
+          docker run -d --name cmlia-network-ci --read-only --cap-drop ALL \
             --security-opt no-new-privileges:true -p 8080:8080 \
-            -e PUBLIC_ORIGIN=http://127.0.0.1:8080 one-ip:ci
+            -e PUBLIC_ORIGIN=http://127.0.0.1:8080 cmlia-network:ci
           for _ in $(seq 1 30); do
-            [ "$(docker inspect -f '{{.State.Health.Status}}' one-ip-ci)" = healthy ] && break
+            [ "$(docker inspect -f '{{.State.Health.Status}}' cmlia-network-ci)" = healthy ] && break
             sleep 2
           done
-          docker inspect -f '{{.State.Health.Status}}' one-ip-ci | grep -qx healthy
+          docker inspect -f '{{.State.Health.Status}}' cmlia-network-ci | grep -qx healthy
           expect() {
             code=$(curl -s -o /dev/null -w '%{http_code}' "${@:2}")
             [ "$code" = "$1" ] || { echo "::error::$* returned $code"; exit 1; }
@@ -115,7 +115,7 @@ jobs:
           curl -sI http://127.0.0.1:8080/ | grep -qi '^content-security-policy:'
       - name: Container logs
         if: always()
-        run: docker logs one-ip-ci || true
+        run: docker logs cmlia-network-ci || true
 
   deploy:
     name: Deploy to Cloudflare
@@ -135,7 +135,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       - uses: actions/download-artifact@v4
         with:
-          name: one-ip-dist
+          name: cmlia-network-dist
       - name: Deploy selected Cloudflare target
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

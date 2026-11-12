@@ -6,7 +6,7 @@ const counters = new Map();
 const maxKeys = 10_000;
 let window = -1;
 
-/** One IPv6 subscriber usually owns a whole /64; count it as one client. */
+/** An IPv6 subscriber usually owns a whole /64; count it as one client. */
 export function rateKey(ip) {
   if (isIP(ip) !== 6) return ip;
   const [left, right] = ip.toLowerCase().split("::");

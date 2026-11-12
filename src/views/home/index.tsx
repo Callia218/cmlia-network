@@ -11,7 +11,7 @@ import { t } from "@/i18n";
 import { lookupIp } from "@/views/ip/api";
 import { testConnectivity } from "@/views/link/api";
 import { useQueries, useQueryClient } from "@tanstack/react-query";
-import { RotateCw } from "lucide-react";
+import { ArrowUpRight, Check, RotateCw, Signal } from "lucide-react";
 import { getGeo, getDomesticIp, getOverseasIp } from "./api";
 import { IpOverviewCard } from "./components/ip-overview-card";
 import { PagePortrait } from "./page-portrait";
@@ -22,6 +22,14 @@ import {
   homeNetworkOverviewClass,
   homePageClass,
   homePingGridClass,
+  homeHeroActionsClass,
+  homeHeroClass,
+  homeHeroCopyClass,
+  homeHeroDescriptionClass,
+  homeHeroEyebrowClass,
+  homeHeroMetricClass,
+  homeHeroSignalClass,
+  homeHeroTitleClass,
   homeToolbarActionsClass,
   homeToolbarClass,
 } from "./styles";
@@ -140,6 +148,70 @@ export function HomePage() {
   const typeByIp = new Map(ips.map((ip, index) => [ip, typeQueries[index]]));
   return (
     <div className={homePageClass}>
+      <section className={homeHeroClass} aria-labelledby="home-hero-title">
+        <div className={homeHeroCopyClass}>
+          <span className={homeHeroEyebrowClass}>
+            <Signal className="size-3.5" aria-hidden="true" />
+            CMLIA·NET / NETWORK INTELLIGENCE
+          </span>
+          <h1 id="home-hero-title" className={homeHeroTitleClass}>
+            看清你的网络出口，做出下一步判断。
+          </h1>
+          <p className={homeHeroDescriptionClass}>
+            从 IP 归属、AI 可用性到全球链路，一次探测收拢你此刻的网络状态。
+          </p>
+          <div className={homeHeroActionsClass}>
+            <Button
+              asChild
+              className="h-10 rounded-full bg-cyan-300 px-5 text-[0.8rem] font-semibold text-[#073247] shadow-[0_8px_24px_-10px_rgb(103_232_249_/_90%)] hover:bg-cyan-200"
+            >
+              <Link to="/ip">
+                查看当前 IP
+                <ArrowUpRight className="ml-1 size-4" aria-hidden="true" />
+              </Link>
+            </Button>
+            <Link
+              to="/unlock/sites"
+              className="inline-flex h-10 items-center rounded-full border border-white/20 px-5 text-[0.8rem] font-semibold text-white/85 transition-colors hover:border-cyan-100/50 hover:bg-white/8 hover:text-white"
+            >
+              浏览网络工具
+            </Link>
+          </div>
+        </div>
+        <div
+          className={homeHeroSignalClass}
+          aria-label="CMLIA Network live checks"
+        >
+          <div className="flex items-center justify-between text-[0.68rem] font-semibold tracking-[0.15em] text-cyan-100/65 uppercase">
+            <span>Live checks</span>
+            <span className="inline-flex items-center gap-1.5 text-emerald-200">
+              <span className="size-1.5 rounded-full bg-emerald-300 shadow-[0_0_0_4px_rgb(110_231_183_/_12%)]" />
+              Online
+            </span>
+          </div>
+          <div className="mt-3">
+            <div className={homeHeroMetricClass}>
+              <span className="text-sm text-slate-200/70">出口识别</span>
+              <span className="inline-flex items-center gap-1 text-sm font-semibold text-white">
+                <Check className="size-3.5 text-emerald-300" />
+                IPv4 / IPv6
+              </span>
+            </div>
+            <div className={homeHeroMetricClass}>
+              <span className="text-sm text-slate-200/70">服务探测</span>
+              <span className="text-sm font-semibold text-cyan-200">
+                AI · CDN · Sites
+              </span>
+            </div>
+            <div className={homeHeroMetricClass}>
+              <span className="text-sm text-slate-200/70">测量范围</span>
+              <span className="text-sm font-semibold text-white">全球节点</span>
+            </div>
+          </div>
+          <div className="pointer-events-none absolute -right-14 -bottom-24 size-64 rounded-full border border-cyan-200/10 bg-cyan-300/8 blur-[1px]" />
+          <div className="pointer-events-none absolute -right-4 -bottom-14 size-36 rounded-full border border-cyan-200/15" />
+        </div>
+      </section>
       <div className={homeToolbarClass}>
         <div className="flex min-w-0 items-center gap-2">
           <span className="grid size-8 shrink-0 place-items-center rounded-xl bg-primary/12 text-primary">

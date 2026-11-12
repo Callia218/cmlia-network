@@ -141,7 +141,8 @@ export async function getAiStatus(service) {
     return parseReplicate(
       await upstream(service.url, {
         headers: {
-          "User-Agent": "One-IP/1.0 (+https://github.com/zhihui-hu/one-ip)",
+          "User-Agent":
+            "CMLIA-Network/1.0 (+https://github.com/Callia218/cmlia-network)",
         },
       }),
     );

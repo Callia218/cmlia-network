@@ -1,7 +1,7 @@
 services:
-  one-ip:
+  cmlia-network:
     build: .
-    image: one-ip:local
+    image: cmlia-network:local
     restart: unless-stopped
     init: true
     ports:

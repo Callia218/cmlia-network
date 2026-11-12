@@ -59,7 +59,7 @@ export default function StatusPage() {
   const rows = allRows.filter((s) => filter === "全部" || s.group === filter);
   const sections = [
     [
-      t("status.incidentsMaintenance"),
+      t("status.officialEventsMaintenance"),
       rows
         .filter(
           (s) =>

@@ -38,11 +38,11 @@ const featured = ["9", "4", "10", "5", "0", "19", "15", "1"].map((id) =>
   services.find((service) => service.id === id)!,
 );
 const statusLabels: Record<string, string> = {
-  none: t("common.operational"),
-  minor: t("common.minorOutage"),
-  major: t("common.majorOutage"),
-  critical: t("common.criticalOutage"),
-  maintenance: t("common.underMaintenance"),
+  none: t("home.officialStatusOperational"),
+  minor: t("home.officialStatusPartialImpact"),
+  major: t("home.officialStatusMajorImpact"),
+  critical: t("home.officialStatusCriticalImpact"),
+  maintenance: t("home.officialStatusMaintenance"),
 };
 function useSummaryVisibility() {
   const ref = useRef<HTMLDivElement>(null);
@@ -136,7 +136,7 @@ export function AiAccessSummary() {
                     color: query.isPending
                       ? "var(--muted-foreground)"
                       : latency == null || latency < 0
-                        ? "var(--danger)"
+                        ? "var(--warning)"
                         : latency < 100
                           ? "var(--success)"
                           : latency < 400
@@ -150,7 +150,7 @@ export function AiAccessSummary() {
                     query.data?.status === "restricted" ? (
                       t("common.checkRestricted")
                     ) : (
-                      t("common.unreachable")
+                      t("common.pendingConfirmation")
                     )
                   ) : (
                     `${latency} ms`

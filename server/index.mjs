@@ -56,7 +56,7 @@ const server = createServer(
 server.keepAliveTimeout = 65_000;
 server.headersTimeout = 66_000;
 server.listen(Number(process.env.PORT ?? 8080), "0.0.0.0", () => {
-  console.log("One IP server ready");
+  console.log("CMLIA Network server ready");
 });
 for (const signal of ["SIGTERM", "SIGINT"])
   process.on(signal, () => {

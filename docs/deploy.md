@@ -4,18 +4,18 @@
 
 ## Cloudflare 部署教程
 
-1. 点击 README 中的 **Deploy to Cloudflare** 按钮，或 [Fork 本项目](https://github.com/Callia218/one-ip/fork)到你的 GitHub 账号。
-2. 直接部署时，在 Cloudflare 授权 GitHub 后选择 `Callia218/one-ip`；Fork 部署时选择你自己的 `one-ip` Fork。
+1. 点击 README 中的 **Deploy to Cloudflare** 按钮，或 [Fork 本项目](https://github.com/Callia218/cmlia-network/fork)到你的 GitHub 账号。
+2. 直接部署时，在 Cloudflare 授权 GitHub 后选择 `Callia218/cmlia-network`；Fork 部署时选择你自己的 `cmlia-network` Fork。
 3. 进入 **Workers & Pages**，使用默认分支作为生产分支。构建命令填 `pnpm build`，部署命令填 `pnpm deploy`，使用 Node.js 24 和 pnpm 10.32.1，根目录保持默认。
 4. 点击部署，完成后打开 `workers.dev` 地址。自定义域名在 Worker 设置中绑定。
 
-项目使用 **Cloudflare Workers + Static Assets**，`/api/*` 接口需要 Worker。基础功能无需应用环境变量或 API Key。Deploy to Cloudflare 按钮会从 `Callia218/one-ip` 创建独立的 Worker 项目；Fork 后部署会使用你授权的 Cloudflare 账户和仓库，不会写入原仓库。Turnstile 的配置见“验证体验”。
+项目使用 **Cloudflare Workers + Static Assets**，`/api/*` 接口需要 Worker。基础功能无需应用环境变量或 API Key。Deploy to Cloudflare 按钮会从 `Callia218/cmlia-network` 创建独立的 Worker 项目；Fork 后部署会使用你授权的 Cloudflare 账户和仓库，不会写入原仓库。Turnstile 的配置见“验证体验”。
 
 国内网络访问地图时，建议在 Worker → Settings → Variables and Secrets 配置 `TIANDITU_TOKEN`（也可以用 `pnpm exec wrangler secret put TIANDITU_TOKEN`）。配置后地图优先使用天地图，失败时回退到 OpenStreetMap；未配置时保持 OpenStreetMap。
 
 默认地图无需注册或 API Key。OpenStreetMap 公共瓦片须遵守[使用政策](https://operations.osmfoundation.org/policies/tiles/)，保留地图署名、按需加载并使用浏览器缓存，不提供离线下载或批量预取；公共服务不保证可用性。瓦片请求仅发送本站 origin 作为 Referer，不包含查询 IP 的页面路径。地图加载失败时可单独重试，位置文字和坐标仍可查看。
 
-Workers Builds 会在连接的生产分支收到提交时构建和部署。上方按钮使用 `Callia218/one-ip`；需要保留 Fork 关系和更新工作流时，请按教程导入你的 Fork。
+Workers Builds 会在连接的生产分支收到提交时构建和部署。上方按钮使用 `Callia218/cmlia-network`；需要保留 Fork 关系和更新工作流时，请按教程导入你的 Fork。
 
 ## Cloudflare Pages 部署
 
@@ -30,7 +30,7 @@ pnpm install --frozen-lockfile
 pnpm build:pages
 pnpm exec wrangler login
 # 首次部署时创建项目；已有项目跳过此行
-pnpm exec wrangler pages project create one-ip --production-branch YOUR_DEFAULT_BRANCH
+pnpm exec wrangler pages project create cmlia-network --production-branch YOUR_DEFAULT_BRANCH
 pnpm deploy:pages --branch YOUR_DEFAULT_BRANCH
 ```
 
@@ -49,8 +49,8 @@ docker compose up -d --build
 打开 `http://服务器地址:8080`。宿主机端口可通过 `PORT=8088 docker compose up -d --build` 修改。也可以手动构建和运行：
 
 ```bash
-docker build -t one-ip:local .
-docker run -d --name one-ip --restart unless-stopped -p 8080:8080 --env-file .env.docker one-ip:local
+docker build -t cmlia-network:local .
+docker run -d --name cmlia-network --restart unless-stopped -p 8080:8080 --env-file .env.docker cmlia-network:local
 ```
 
 环境变量在容器启动时读取，修改后执行 `docker compose up -d --force-recreate`；密钥不会编译进前端。`/healthz` 是容器健康检查入口，不依赖外部数据源。本机直接运行同一服务可用 `pnpm build:docker` 后执行 `pnpm start`。
@@ -107,7 +107,7 @@ Workers Builds 和 GitHub Actions 选择一种部署方式，避免重复发布�
 | Secret   | `CLOUDFLARE_API_TOKEN`  | 对应目标的 Workers/Pages 部署凭证 |
 | Secret   | `CLOUDFLARE_ACCOUNT_ID` | 目标 Cloudflare 账户 ID           |
 
-推送到部署分支（`CF_DEPLOY_BRANCH`，未设置时使用仓库默认分支），或在该分支上运行 `Build and deploy one-ip`。构建、测试和 Docker 冒烟测试通过后进入部署；其他分支只做构建和测试。只改文档不会触发。部署使用 `production` 环境，Secret 可以放在仓库或该环境中。外部 PR 执行测试，不获得部署凭证。这些凭证用于 CI。
+推送到部署分支（`CF_DEPLOY_BRANCH`，未设置时使用仓库默认分支），或在该分支上运行 `Build and deploy cmlia-network`。构建、测试和 Docker 冒烟测试通过后进入部署；其他分支只做构建和测试。只改文档不会触发。部署使用 `production` 环境，Secret 可以放在仓库或该环境中。外部 PR 执行测试，不获得部署凭证。这些凭证用于 CI。
 
 选择 `pages` 时先创建与 `deploy/pages/wrangler.toml` 同名的 Pages 项目。使用 Pages Git 集成时，无需开启 Actions 部署。
 
@@ -121,7 +121,7 @@ Workers Builds 和 GitHub Actions 选择一种部署方式，避免重复发布�
 2. 在 Settings → Secrets and variables → Actions → **Variables** 添加 `AUTO_SYNC_UPSTREAM=true`。
 3. 工作流在每天 UTC 04:23 检查更新。Actions 页面提供运行入口。
 
-支持范围是从 `Callia218/one-ip` 创建的 Fork，无需个人访问令牌（PAT）。工作流通过 GitHub 的 `merge-upstream` 接口合并更新，遇到冲突时停止，保留你的提交。需要审核更新时，使用 GitHub 的 Sync fork。
+支持范围是从 `Callia218/cmlia-network` 创建的 Fork，无需个人访问令牌（PAT）。工作流通过 GitHub 的 `merge-upstream` 接口合并更新，遇到冲突时停止，保留你的提交。需要审核更新时，使用 GitHub 的 Sync fork。
 
 - **Workers Builds**：连接 Fork 的生产分支，在 Cloudflare 构建历史中检查同步提交的部署记录。
 - **GitHub Actions 部署**：同步产生更新时，工作流触发部署任务。`GITHUB_TOKEN` 产生的推送不会触发普通 `push` 工作流。

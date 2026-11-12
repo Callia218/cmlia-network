@@ -93,10 +93,10 @@ function AuthorContactDetails() {
       >
         <a
           className="inline-flex items-center gap-2 rounded-lg border px-3 py-2 text-sm text-primary hover:bg-accent"
-          href="mailto:ip@huzhihui.com"
+          href="mailto:ip@cmlia.cn"
         >
           <Mail className="size-4" aria-hidden="true" />
-          ip@huzhihui.com
+          ip@cmlia.cn
         </a>
         <p className="text-xs text-muted-foreground">
           {t("contact.emailHint")}

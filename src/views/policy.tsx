@@ -90,9 +90,9 @@ export default function PolicyPage({ page }: { page: "terms" | "privacy" }) {
         <div className="flex flex-wrap items-center gap-4">
           <a
             className="text-sm text-primary hover:underline"
-            href="mailto:ip@huzhihui.com"
+            href="mailto:ip@cmlia.cn"
           >
-            ip@huzhihui.com
+            ip@cmlia.cn
           </a>
           <AuthorContact className="text-sm text-primary hover:underline">
             {t("sites.wechat")}

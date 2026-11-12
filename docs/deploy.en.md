@@ -4,18 +4,18 @@
 
 ## Deploy to Cloudflare
 
-1. Click the **Deploy to Cloudflare** button in the README, or [fork this project](https://github.com/Callia218/one-ip/fork) into your GitHub account.
-2. For a direct deployment, authorize GitHub and select `Callia218/one-ip` in Cloudflare; for a fork deployment, select your own `one-ip` fork.
+1. Click the **Deploy to Cloudflare** button in the README, or [fork this project](https://github.com/Callia218/cmlia-network/fork) into your GitHub account.
+2. For a direct deployment, authorize GitHub and select `Callia218/cmlia-network` in Cloudflare; for a fork deployment, select your own `cmlia-network` fork.
 3. In **Workers & Pages**, use the selected repository's default branch as the production branch. Set the build command to `pnpm build` and the deploy command to `pnpm deploy`. Use Node.js 24 and pnpm 10.32.1. Keep the default root directory.
 4. Deploy and open the assigned `workers.dev` address. Use the Worker settings to connect a custom domain.
 
-The project uses **Cloudflare Workers with Static Assets**. The `/api/*` routes need a Worker. Core features require no application environment variables or API keys. The Deploy to Cloudflare button creates a separate Worker project from `Callia218/one-ip`; a fork deployment uses the Cloudflare account and repository you authorize and never writes to the upstream repository. See “Verification” for Turnstile setup.
+The project uses **Cloudflare Workers with Static Assets**. The `/api/*` routes need a Worker. Core features require no application environment variables or API keys. The Deploy to Cloudflare button creates a separate Worker project from `Callia218/cmlia-network`; a fork deployment uses the Cloudflare account and repository you authorize and never writes to the upstream repository. See “Verification” for Turnstile setup.
 
 For map access from mainland China, configure `TIANDITU_TOKEN` under Worker → Settings → Variables and Secrets (or run `pnpm exec wrangler secret put TIANDITU_TOKEN`). Maps prefer Tianditu and fall back to OpenStreetMap when unavailable; without the token, OpenStreetMap remains the default.
 
 The default map requires no account or API key. OpenStreetMap's public tiles are subject to its [usage policy](https://operations.osmfoundation.org/policies/tiles/): keep attribution visible, load tiles on demand, respect browser caching, and do not offer offline downloads or bulk prefetching. Availability is not guaranteed. Tile requests send only this site's origin as the Referer, excluding page paths containing queried IPs. Failed maps can be retried independently while location text and coordinates remain available.
 
-Workers Builds builds and deploys when the connected production branch receives a commit. The button above points to `Callia218/one-ip`. To preserve the fork relationship and update workflow, follow the steps to import your fork.
+Workers Builds builds and deploys when the connected production branch receives a commit. The button above points to `Callia218/cmlia-network`. To preserve the fork relationship and update workflow, follow the steps to import your fork.
 
 ## Cloudflare Pages deployment
 
@@ -30,7 +30,7 @@ pnpm install --frozen-lockfile
 pnpm build:pages
 pnpm exec wrangler login
 # First deployment only; skip if the project already exists
-pnpm exec wrangler pages project create one-ip --production-branch YOUR_DEFAULT_BRANCH
+pnpm exec wrangler pages project create cmlia-network --production-branch YOUR_DEFAULT_BRANCH
 pnpm deploy:pages --branch YOUR_DEFAULT_BRANCH
 ```
 
@@ -49,8 +49,8 @@ docker compose up -d --build
 Open `http://your-server:8080`. Override the host port with `PORT=8088 docker compose up -d --build`. To build and run manually:
 
 ```bash
-docker build -t one-ip:local .
-docker run -d --name one-ip --restart unless-stopped -p 8080:8080 --env-file .env.docker one-ip:local
+docker build -t cmlia-network:local .
+docker run -d --name cmlia-network --restart unless-stopped -p 8080:8080 --env-file .env.docker cmlia-network:local
 ```
 
 Settings are read when the container starts and are never embedded in the frontend. Apply changes with `docker compose up -d --force-recreate`. The `/healthz` endpoint checks container health without an external provider. To run the same server without Docker, use `pnpm build:docker` followed by `pnpm start`.
@@ -107,7 +107,7 @@ Choose Workers Builds or GitHub Actions to avoid duplicate deployments. Actions 
 | Secret   | `CLOUDFLARE_API_TOKEN`  | Workers/Pages deployment credentials for the target |
 | Secret   | `CLOUDFLARE_ACCOUNT_ID` | Target Cloudflare account ID                        |
 
-Push to the deploy branch (`CF_DEPLOY_BRANCH`, or the repository default branch when unset) or run `Build and deploy one-ip` on it. Deployment starts after the build, tests and Docker smoke test pass; other branches only build and test. Documentation-only changes do not trigger a run. Deployment uses the `production` environment, so secrets can live in the repository or that environment. External PRs run tests without deployment credentials. These credentials are used by CI.
+Push to the deploy branch (`CF_DEPLOY_BRANCH`, or the repository default branch when unset) or run `Build and deploy cmlia-network` on it. Deployment starts after the build, tests and Docker smoke test pass; other branches only build and test. Documentation-only changes do not trigger a run. Deployment uses the `production` environment, so secrets can live in the repository or that environment. External PRs run tests without deployment credentials. These credentials are used by CI.
 
 For `pages`, first create the Pages project named in `deploy/pages/wrangler.toml`. When using Pages Git integration, leave Actions deployment disabled.
 
@@ -121,7 +121,7 @@ For scheduled updates, enable `Sync upstream`:
 2. Under Settings → Secrets and variables → Actions → **Variables**, add `AUTO_SYNC_UPSTREAM=true`.
 3. The workflow checks for updates at 04:23 UTC each day. You can run it from the Actions page.
 
-The workflow supports forks created from `Callia218/one-ip` and requires no personal access token. It uses GitHub's `merge-upstream` API, stops on conflicts and preserves your commits. Use GitHub's Sync fork if you want to review updates.
+The workflow supports forks created from `Callia218/cmlia-network` and requires no personal access token. It uses GitHub's `merge-upstream` API, stops on conflicts and preserves your commits. Use GitHub's Sync fork if you want to review updates.
 
 - **Workers Builds:** connect your fork's production branch and check deployment records for synchronized commits in Cloudflare's build history.
 - **GitHub Actions deployment:** the sync workflow triggers deployment when it merges updates. Pushes made with `GITHUB_TOKEN` do not trigger ordinary `push` workflows.

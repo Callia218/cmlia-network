@@ -1,4 +1,4 @@
-# <img src="public/icon.svg" alt="One IP Logo" width="32" height="32" /> One IP
+# <img src="public/icon.svg" alt="CMLIA Network Logo" width="32" height="32" /> CMLIA Network
 
 <p align="left">
   <img src="https://img.shields.io/badge/React-19-282C34?logo=react&amp;logoColor=61DAFB" alt="React 19" />
@@ -11,7 +11,7 @@ A toolbox for IP lookups, network diagnostics, browser checks and AI service sta
 
 [中文](README.md) · **English**
 
-[Live demo](https://ip.huzhihui.com/) · [GitHub](https://github.com/Callia218/one-ip)
+[Live demo](https://ip.cmlia.cn/) · [GitHub](https://github.com/Callia218/cmlia-network)
 
 ![Desktop overview, redacted](docs/screenshots/desktop-home-redacted.png)
 
@@ -38,7 +38,7 @@ Results rely on third-party services and may be affected by rate limits or CORS.
 
 One-click deploy to Cloudflare:
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https%3A%2F%2Fgithub.com%2FCallia218%2Fone-ip)
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https%3A%2F%2Fgithub.com%2FCallia218%2Fcmlia-network)
 
 Or fork the repo and import it under Cloudflare **Workers & Pages** with build command `pnpm build` and deploy command `pnpm deploy`. Core features need no API keys.
 
@@ -67,7 +67,7 @@ Issues are welcome. Redact IPs, locations and fingerprint identifiers before sha
 
 ## Business Cooperation
 
-A closed-source commercial edition is available: commercial licenses, private deployment, custom development and API access, and technical support. Contact [ip@huzhihui.com](mailto:ip@huzhihui.com) or WeChat with your use case and expected scale.
+A closed-source commercial edition is available: commercial licenses, private deployment, custom development and API access, and technical support. Contact [ip@cmlia.cn](mailto:ip@cmlia.cn) or WeChat with your use case and expected scale.
 
 <details>
   <summary>Contact on WeChat (show QR code)</summary>
@@ -77,9 +77,9 @@ A closed-source commercial edition is available: commercial licenses, private de
 
 ## Star History
 
-<a href="https://www.star-history.com/?repos=Callia218%2Fone-ip&amp;type=date">
+<a href="https://www.star-history.com/?repos=Callia218%2Fcmlia-network&amp;type=date">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Callia218/one-ip&amp;type=Date&amp;theme=dark" />
-    <img src="https://api.star-history.com/svg?repos=Callia218/one-ip&amp;type=Date" alt="One IP GitHub star history" width="640" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Callia218/cmlia-network&amp;type=Date&amp;theme=dark" />
+    <img src="https://api.star-history.com/svg?repos=Callia218/cmlia-network&amp;type=Date" alt="CMLIA Network GitHub star history" width="640" />
   </picture>
 </a>

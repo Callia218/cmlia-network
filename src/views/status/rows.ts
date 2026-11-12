@@ -18,11 +18,11 @@ export const componentLabels: Record<string, string> = {
   under_maintenance: t("common.underMaintenance"),
 };
 export const indicatorLabels: Record<string, string> = {
-  none: t("common.operational"),
-  minor: t("common.minorOutage"),
-  major: t("common.majorOutage"),
-  critical: t("common.criticalOutage"),
-  maintenance: t("common.underMaintenance"),
+  none: t("status.officialStatusOperational"),
+  minor: t("status.officialStatusPartialImpact"),
+  major: t("status.officialStatusMajorImpact"),
+  critical: t("status.officialStatusCriticalIncident"),
+  maintenance: t("status.officialStatusMaintenance"),
 };
 
 export function toTableRow(service: ServiceWithQuery) {

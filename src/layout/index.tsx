@@ -139,7 +139,7 @@ export function AppLayout() {
           © {currentYear} IP ·{" "}
           <UnderlineHover asChild>
             <a
-              href="https://huzhihui.com/blog/one-ip-guide"
+              href="https://github.com/Callia218/cmlia-network#readme"
               target="_blank"
               rel="noopener noreferrer"
             >

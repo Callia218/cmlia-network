@@ -3,7 +3,7 @@
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
 
-/* One IP visual system: midnight blue surfaces with a bright cyan signal color. */
+/* CMLIA Network visual system: midnight blue surfaces with a bright cyan signal color. */
 
 @custom-variant dark (&:is(.dark *));
 
@@ -257,13 +257,13 @@ body {
 }
 .app-shell {
   position: relative;
-  display: grid;
-  place-items: center;
+  display: block;
+  width: 100%;
   min-height: 100vh;
   min-height: 100dvh;
-  padding: calc(5rem + env(safe-area-inset-top, 0px))
+  padding: calc(2.25rem + env(safe-area-inset-top, 0px))
     calc(1.5rem + env(safe-area-inset-right, 0px))
-    calc(5rem + env(safe-area-inset-bottom, 0px))
+    calc(2.75rem + env(safe-area-inset-bottom, 0px))
     calc(1.5rem + env(safe-area-inset-left, 0px));
 }
 /* iOS Safari zooms focused text fields smaller than 16px. */

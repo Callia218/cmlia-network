@@ -77,21 +77,22 @@ export function createWebMcpTools(navigate: (path: string) => void): Tool[] {
     {
       name: "one_ip_open_page",
       description:
-        "Open a One IP diagnostics page, including the interactive browser permission page.",
+        "Open a CMLIA Network diagnostics page, including the interactive browser permission page.",
       inputSchema: {
         type: "object",
         properties: {
           path: {
             type: "string",
             enum: pages,
-            description: "Exact One IP page path",
+            description: "Exact CMLIA Network page path",
           },
         },
         required: ["path"],
       },
       execute: (input) => {
         const path = required(input, "path");
-        if (!pages.includes(path)) throw new Error("Unknown One IP page path");
+        if (!pages.includes(path))
+          throw new Error("Unknown CMLIA Network page path");
         navigate(path);
         return { page: path };
       },
@@ -99,7 +100,7 @@ export function createWebMcpTools(navigate: (path: string) => void): Tool[] {
     {
       name: "one_ip_current_ip",
       description:
-        "Get the IP address and geography observed by One IP's own server for this browser connection.",
+        "Get the IP address and geography observed by CMLIA Network's own server for this browser connection.",
       inputSchema: empty,
       annotations: { readOnlyHint: true },
       execute: async (_, { signal }) => {
@@ -155,7 +156,7 @@ export function createWebMcpTools(navigate: (path: string) => void): Tool[] {
     {
       name: "one_ip_ip_network",
       description:
-        "Read ASN and BGP network topology information for a public IPv4 or IPv6 address from One IP's server.",
+        "Read ASN and BGP network topology information for a public IPv4 or IPv6 address from CMLIA Network's server.",
       inputSchema: {
         type: "object",
         properties: { ip: text("Public IPv4 or IPv6 address") },
@@ -246,7 +247,7 @@ export function createWebMcpTools(navigate: (path: string) => void): Tool[] {
     {
       name: "one_ip_service_status",
       description:
-        "Read the latest incident and component status for one service listed on One IP's status page.",
+        "Read the latest incident and component status for one service listed on CMLIA Network's status page.",
       inputSchema: {
         type: "object",
         properties: {
@@ -314,7 +315,7 @@ export function createWebMcpTools(navigate: (path: string) => void): Tool[] {
     {
       name: "one_ip_connectivity",
       description:
-        "Measure this browser's reachability and median latency to one site from One IP's fixed target catalog. Makes up to eight browser requests.",
+        "Measure this browser's reachability and median latency to one site from CMLIA Network's fixed target catalog. Makes up to eight browser requests.",
       inputSchema: {
         type: "object",
         properties: { site: text("Exact site name from one_ip_catalog") },
@@ -466,7 +467,7 @@ export function createWebMcpTools(navigate: (path: string) => void): Tool[] {
     {
       name: "one_ip_catalog",
       description:
-        "List available One IP pages, service names, connectivity sites, and AI platforms before selecting a diagnostic tool.",
+        "List available CMLIA Network pages, service names, connectivity sites, and AI platforms before selecting a diagnostic tool.",
       inputSchema: empty,
       annotations: { readOnlyHint: true },
       execute: () => ({

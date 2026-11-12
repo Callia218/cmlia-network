@@ -13,7 +13,7 @@ let dir;
 let server;
 
 before(async () => {
-  dir = await mkdtemp(join(tmpdir(), "one-ip-server-"));
+  dir = await mkdtemp(join(tmpdir(), "cmlia-network-server-"));
   const assets = join(dir, "dist");
   await mkdir(join(assets, "assets"), { recursive: true });
   await writeFile(
