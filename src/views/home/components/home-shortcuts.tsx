@@ -11,6 +11,7 @@ import {
   Globe,
   LockKeyholeOpen,
   Radar,
+  ScanLine,
   Search,
   ShieldAlert,
   Webcam,
@@ -32,6 +33,12 @@ export function iconTone(position: number) {
 /** Flat directory of every tool; each opens in a new tab. */
 export function HomeShortcuts() {
   const tools = [
+    {
+      path: "/who-am-i",
+      label: t("identity.title"),
+      description: t("identity.intro"),
+      icon: ScanLine,
+    },
     {
       path: "/ip",
       label: t("common.ipLookup"),

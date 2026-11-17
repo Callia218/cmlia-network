@@ -17,6 +17,7 @@ function tools() {
     if (name === "@/layout/routes")
       return {
         navigationRoutes: [{ path: "/" }, { path: "/ip" }],
+        secondaryRoutes: ["/who-am-i", "/diagnostics/dns", "/diagnostics/http"],
         pageTabs: { "/browser": [{ path: "/browser/privacy" }] },
       };
     if (name === "@/views/ai/platforms")
@@ -95,6 +96,7 @@ test("WebMCP registers unique, complete tool definitions and restricts navigatio
   assert.ok(
     find("one_ip_catalog").execute().pages.includes("/browser/privacy"),
   );
+  assert.ok(find("one_ip_catalog").execute().pages.includes("/who-am-i"));
 });
 
 test("IP and Ping tools validate before requests and forward abort signals", async () => {

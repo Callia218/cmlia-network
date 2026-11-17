@@ -12,6 +12,7 @@ import { ipType } from "./ip-type.js";
 import { mapConfig } from "./map.js";
 import { startPing, pingResult, pingNodes } from "./ping.js";
 import { rateLimit } from "./rate-limit.js";
+import { requestContext } from "./request-context.js";
 import { normalizeStatus } from "./service-status.js";
 import services from "./services.json";
 import { tlsFingerprint } from "./tls-fingerprint.js";
@@ -69,6 +70,10 @@ export default {
         throw new HttpError(405, "不支持此请求方法");
       if (path === "/browser/tls-fingerprint")
         return json(tlsFingerprint(request));
+      if (path === "/browser/request-context")
+        return json(
+          requestContext(request, { local: env.LOCAL_DEV === "true" }),
+        );
       if (path === "/browser/challenges")
         return json(challengeConfig(env, url.hostname));
       if (path.startsWith("/icons/"))

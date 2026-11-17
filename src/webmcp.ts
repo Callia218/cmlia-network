@@ -1,4 +1,4 @@
-import { navigationRoutes, pageTabs } from "@/layout/routes";
+import { navigationRoutes, pageTabs, secondaryRoutes } from "@/layout/routes";
 import { endpoint, trace } from "@/lib/network";
 import { aiPlatforms } from "@/views/ai/platforms";
 import egressSites from "@/views/home/sites.json";
@@ -24,6 +24,7 @@ export type ModelContext = {
 const empty = { type: "object", properties: {} };
 const text = (description: string) => ({ type: "string", description });
 const pages = [
+  ...secondaryRoutes,
   ...navigationRoutes.map((route) => route.path as string),
   ...Object.values(pageTabs)
     .flat()

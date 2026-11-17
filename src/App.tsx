@@ -27,6 +27,7 @@ const SpeedtestPage = lazy(() => import("@/views/network/speedtest"));
 const WhoisPage = lazy(() => import("@/views/whois"));
 const DnsDiagnosticsPage = lazy(() => import("@/views/dns-diagnostics"));
 const HttpDiagnosticsPage = lazy(() => import("@/views/http-diagnostics"));
+const IdentityPage = lazy(() => import("@/views/identity"));
 const PolicyPage = lazy(() => import("@/views/policy"));
 
 function Redirect({ to }: { to: string }) {
@@ -60,6 +61,7 @@ export function App() {
           <Route path="whois" element={<WhoisPage />} />
           <Route path="diagnostics/dns" element={<DnsDiagnosticsPage />} />
           <Route path="diagnostics/http" element={<HttpDiagnosticsPage />} />
+          <Route path="who-am-i" element={<IdentityPage />} />
           <Route path="leak">
             <Route index element={<Navigate replace to="/leak/dns" />} />
             <Route path="dns" element={<DnsLeakPage />} />

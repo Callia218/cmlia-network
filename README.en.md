@@ -26,10 +26,12 @@ A toolbox for IP lookups, network diagnostics, browser checks and AI service sta
 ## Features
 
 - **Current IP (home)**: IPv4 / IPv6 location, ISP, ASN, reputation score and maps; IP checks open in a new tab
+- **[What websites see](https://ip.cmlia.cn/who-am-i?lang=en)**: 50 reading fields grouped by network, TLS, request headers and browser, with collection timing, UA / language / timezone comparisons and a local redacted JSON export. Missing data stays unavailable.
 - **Leak test**: DNS leaks and WebRTC leaks
 - **Network unlock**: reachability and routed egress for AI, streaming and regional sites, plus ChatGPT and Claude diagnostics
 - **Speed test**: download, upload and latency over Cloudflare's edge network
 - **More tools**: WHOIS, global Ping, browser fingerprint and consistency checks, service status
+- **Domain and HTTP diagnostics**: DNS records, DNSSEC authentication flags, HTTP status, redirects and security headers
 - Chinese / English, light / dark themes, mobile layouts; native browser [WebMCP](https://developer.chrome.com/docs/ai/webmcp/) tools
 
 Results rely on third-party services and may be affected by rate limits or CORS. IP classifications and scores are for reference only.

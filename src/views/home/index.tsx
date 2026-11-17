@@ -171,10 +171,10 @@ export function HomePage() {
               </Link>
             </Button>
             <Link
-              to="/unlock/sites"
+              to="/who-am-i"
               className="inline-flex h-10 items-center rounded-full border border-white/20 px-5 text-[0.8rem] font-semibold text-white/85 transition-colors hover:border-cyan-100/50 hover:bg-white/8 hover:text-white"
             >
-              浏览网络工具
+              {t("identity.title")}
             </Link>
           </div>
         </div>

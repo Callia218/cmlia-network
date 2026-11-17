@@ -50,6 +50,7 @@ export const secondaryRoutes = [
   "/",
   "/ip",
   "/whois",
+  "/who-am-i",
   "/diagnostics/dns",
   "/diagnostics/http",
   "/ping",

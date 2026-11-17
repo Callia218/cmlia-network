@@ -1,0 +1,4 @@
+# These text assets have pinned byte hashes; preserve their canonical line endings.
+/vendor/browser-diagnostics/** text eol=lf
+/public/browser-diagnostics.js text eol=lf
+/public/browser-diagnostics.LICENSE.txt text eol=lf
